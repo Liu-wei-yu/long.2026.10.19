@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>云海小镇 · Cloud Town</title>
+<link rel="stylesheet" href="./css/style.css">
+<script type="importmap">
+{
+  "imports": {
+    "three": "./vendor/three.module.js",
+    "three/addons/": "./vendor/addons/"
+  }
+}
+</script>
+</head>
+<body>
+<canvas id="c"></canvas>
+<div id="ui"></div>
+<div id="loading">正在铺云…</div>
+<div id="err"></div>
+<script>
+window.addEventListener('error', (e) => {
+  const el = document.getElementById('err');
+  el.style.display = 'block';
+  el.textContent = '⚠ ' + (e.message || e.error) + '\n' + (e.filename || '') + ':' + (e.lineno || '');
+});
+window.addEventListener('unhandledrejection', (e) => {
+  const el = document.getElementById('err');
+  el.style.display = 'block';
+  el.textContent = '⚠ ' + (e.reason && (e.reason.stack || e.reason.message) || e.reason);
+});
+</script>
+<script type="module" src="./js/main.js"></script>
+</body>
+</html>

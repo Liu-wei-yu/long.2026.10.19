@@ -1,0 +1,219 @@
+:root {
+  --ink: #211d2c;
+  --paper: #f5eee2;
+  --gold: #e8b86a;
+  --panel: rgba(24, 22, 34, 0.62);
+  --line: rgba(255, 240, 214, 0.16);
+}
+
+* { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  overflow: hidden;
+  background: #0e1226;
+  color: var(--paper);
+  font-family: "PingFang SC", "Microsoft YaHei", "Noto Sans SC", system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+#c {
+  display: block;
+  width: 100vw;
+  height: 100vh;
+}
+
+#ui {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 10;
+}
+#ui.hidden > * { opacity: 0; transition: opacity .3s; }
+
+.panel {
+  position: absolute;
+  pointer-events: auto;
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  box-shadow: 0 10px 30px rgba(6, 8, 20, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.06);
+}
+
+/* ---------- 标题 ---------- */
+.title {
+  top: 22px;
+  left: 24px;
+  padding: 14px 20px 13px;
+}
+.title h1 {
+  margin: 0;
+  font-size: 22px;
+  letter-spacing: .22em;
+  font-weight: 600;
+  font-family: "Songti SC", "STSong", "SimSun", serif;
+  color: #fdf6e9;
+  text-shadow: 0 2px 12px rgba(0, 0, 0, .35);
+}
+.title p {
+  margin: 6px 0 0;
+  font-size: 10.5px;
+  letter-spacing: .18em;
+  color: rgba(245, 238, 226, .55);
+  text-transform: uppercase;
+}
+
+/* ---------- 状态 ---------- */
+.status {
+  top: 22px;
+  right: 24px;
+  padding: 12px 16px;
+  min-width: 148px;
+  font-size: 12px;
+}
+.status .row {
+  display: flex;
+  justify-content: space-between;
+  gap: 18px;
+  padding: 3px 0;
+}
+.status .lbl { color: rgba(245, 238, 226, .48); letter-spacing: .1em; }
+#clock { font-variant-numeric: tabular-nums; font-size: 15px; letter-spacing: .06em; color: var(--gold); }
+
+/* ---------- 控制面板 ---------- */
+.controls {
+  left: 24px;
+  bottom: 24px;
+  padding: 14px 16px 16px;
+  width: 306px;
+}
+.group + .group { margin-top: 12px; padding-top: 12px; border-top: 1px solid var(--line); }
+.group-title {
+  font-size: 10.5px;
+  letter-spacing: .2em;
+  color: rgba(245, 238, 226, .45);
+  margin-bottom: 8px;
+}
+.btns { display: flex; gap: 6px; flex-wrap: wrap; }
+.btns button {
+  flex: 1 1 auto;
+  min-width: 62px;
+  padding: 7px 10px;
+  font-size: 12px;
+  color: #f2e8d8;
+  background: rgba(255, 244, 226, .07);
+  border: 1px solid rgba(255, 244, 226, .13);
+  border-radius: 9px;
+  cursor: pointer;
+  transition: background .18s, border-color .18s, transform .12s;
+  font-family: inherit;
+}
+.btns button:hover { background: rgba(232, 184, 106, .18); border-color: rgba(232, 184, 106, .45); }
+.btns button:active { transform: scale(.96); }
+.btns button.active { background: rgba(232, 184, 106, .28); border-color: var(--gold); color: #fff6e6; }
+
+input[type="range"] {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  height: 3px;
+  margin: 14px 0 2px;
+  border-radius: 3px;
+  background: linear-gradient(90deg, #2b3357 0%, #6b5a9a 26%, #ffb36b 42%, #bfe6ff 55%, #ffb36b 74%, #2b3357 100%);
+  outline: none;
+  cursor: pointer;
+}
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 14px; height: 14px;
+  border-radius: 50%;
+  background: #fff4e2;
+  border: 2px solid var(--gold);
+  box-shadow: 0 0 10px rgba(232, 184, 106, .6);
+}
+
+/* ---------- 提示 ---------- */
+.help {
+  position: absolute;
+  right: 24px;
+  bottom: 24px;
+  font-size: 11px;
+  line-height: 1.9;
+  text-align: right;
+  color: rgba(245, 238, 226, .5);
+  pointer-events: none;
+  text-shadow: 0 1px 6px rgba(0, 0, 0, .5);
+}
+.help b { color: rgba(245, 238, 226, .82); font-weight: 500; }
+
+/* ---------- 房屋信息卡 ---------- */
+.card {
+  right: 24px;
+  top: 120px;
+  width: 208px;
+  padding: 14px 16px;
+  transition: opacity .22s, transform .22s;
+}
+.card.hidden { opacity: 0; transform: translateY(-6px); pointer-events: none; }
+.card-name {
+  font-size: 16px;
+  font-family: "Songti SC", "STSong", serif;
+  letter-spacing: .16em;
+  color: #fff8ec;
+}
+.card-job {
+  margin-top: 3px;
+  font-size: 11px;
+  letter-spacing: .12em;
+  color: var(--gold);
+}
+.card-line {
+  margin-top: 9px;
+  font-size: 12px;
+  line-height: 1.7;
+  color: rgba(245, 238, 226, .76);
+}
+.card-tip {
+  margin-top: 10px;
+  padding-top: 8px;
+  border-top: 1px solid var(--line);
+  font-size: 10.5px;
+  color: rgba(245, 238, 226, .4);
+}
+
+/* ---------- 加载 / 错误 ---------- */
+#loading {
+  position: fixed;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  z-index: 30;
+  background: radial-gradient(circle at 50% 45%, #1b2340 0%, #0b0e1e 70%);
+  color: #e8dcc6;
+  letter-spacing: .3em;
+  font-size: 13px;
+  transition: opacity .6s;
+}
+#loading.hidden { opacity: 0; pointer-events: none; }
+
+#err {
+  position: fixed;
+  left: 12px;
+  bottom: 12px;
+  right: 12px;
+  max-height: 40vh;
+  overflow: auto;
+  display: none;
+  z-index: 50;
+  padding: 12px 14px;
+  background: rgba(90, 20, 30, .92);
+  border: 1px solid #ff7d7d;
+  border-radius: 10px;
+  color: #ffdede;
+  font: 12px/1.6 ui-monospace, Consolas, monospace;
+  white-space: pre-wrap;
+}
